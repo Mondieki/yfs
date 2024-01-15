@@ -1,0 +1,16 @@
+<nz-list-item>
+    <nz-card [nzTitle]="(company.name | titlecase)" [nzExtra]="extraTemplate" [nzActions]="[more]">
+        <div [innerHTML]="company.companyDescription | truncateText:160 " style="margin-bottom: 30px;"></div>
+        <nz-tag nzColor="purple">{{ company.vertical }}</nz-tag>
+        <nz-tag [nzColor]="company.mrr === 'Pre-revenue' ?'magenta': 'green'" *ngIf="company.mrr">{{ company.mrr
+            === 'Pre-revenue' ? 'Pre-revenue': company.mrr+' MRR' }}</nz-tag>
+        <nz-tag nzColor="magenta">{{ 'HQ ' + (company.headquarters | countryToFlag)
+            }}</nz-tag>
+    </nz-card>
+    <ng-template #extraTemplate>
+        <a [href]="(company.domainUrl | validURL )" target="_blank"><span nz-icon nzType="link"></span></a>
+    </ng-template>
+    <ng-template #more>
+        <a [routerLink]="['/company', company.ID]">Learn more</a>
+    </ng-template>
+</nz-list-item>

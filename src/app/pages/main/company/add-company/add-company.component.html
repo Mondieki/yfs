@@ -1,0 +1,112 @@
+<nz-page-header nzTitle="Add Company" nzSubtitle="">
+</nz-page-header>
+<hr />
+<div *ngIf="!user">
+    <nz-skeleton></nz-skeleton>
+    <nz-skeleton></nz-skeleton>
+</div>
+
+<div *ngIf="user">
+    <form nz-form [formGroup]="companyForm" (ngSubmit)="submitForm()" nzLayout="vertical">
+        <!-- Company Name -->
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="name" nzRequired>Company Name</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please enter company/startup name" nzHasFeedback>
+                <input nz-input formControlName="name" id="name" />
+            </nz-form-control>
+        </nz-form-item>
+
+        <!-- Domain URL -->
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="domainUrl">Company URL</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please enter a valid URL" nzHasFeedback>
+                <input nz-input formControlName="domainUrl" id="domainUrl" type="url" />
+            </nz-form-control>
+        </nz-form-item>
+
+        <!-- Company Description -->
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="companyDescription" nzRequired>Company
+                Description</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Character count should be between 10 and 300"
+                nzHasFeedback>
+                <nz-textarea-count [nzMaxCharacterCount]="300">
+                    <textarea [nzAutosize]="{ minRows: 5, maxRows: 9 }" formControlName="companyDescription"
+                        id="companyDescription" nz-input></textarea>
+                </nz-textarea-count>
+            </nz-form-control>
+        </nz-form-item>
+
+        <!-- Verticals -->
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="vertical" nzRequired>Vertical</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Which industry does your company operate in?"
+                nzHasFeedback>
+                <nz-select nzShowSearch formControlName="vertical" id="vertical">
+                    <nz-option [nzValue]="item" [nzLabel]="item" *ngFor="let item of verticals"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+
+        <!-- Company Stage -->
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="companyStage" nzRequired>Company Stage</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select a stage" nzHasFeedback>
+                <nz-select formControlName="companyStage" id="companyStage">
+                    <nz-option [nzValue]="item.id" [nzLabel]="item.name" *ngFor="let item of biz_stages"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+
+        <!-- Headquarters -->
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="headquarters" nzRequired>Headquarters</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please enter the headquarters location" nzHasFeedback>
+                <nz-select nzShowSearch formControlName="headquarters" id="headquarters">
+                    <nz-option [nzValue]="item.iso_3166" [nzLabel]="item.name| titlecase"
+                        *ngFor="let item of countries"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+
+        <!-- Is Registered -->
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="isRegistered" nzRequired>Is Registered?</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+                <nz-radio-group formControlName="isRegistered" nzHasFeedback>
+                    <label nz-radio [nzValue]="true">Yes</label>
+                    <label nz-radio [nzValue]="false">No</label>
+                </nz-radio-group>
+            </nz-form-control>
+        </nz-form-item>
+
+        <!-- Funding Type -->
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="fundingType" nzRequired>Funding Stage</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please select a funding type" nzHasFeedback>
+                <nz-select formControlName="fundingType" id="fundingType">
+                    <nz-option [nzValue]="item" [nzLabel]="item | titlecase" *ngFor="let item of funding"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+
+        <!-- MRR -->
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="mrr">Monthly recurring revenue</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="What's your monthly recurring revenue?" nzHasFeedback>
+                <nz-select formControlName="mrr" id="mrr">
+                    <nz-option [nzValue]="item" [nzLabel]="item | titlecase" *ngFor="let item of revenues"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-divider></nz-divider>
+
+        <!-- Submit Button -->
+        <nz-form-item>
+            <nz-form-control [nzSpan]="14" [nzOffset]="6">
+                <button nz-button nzType="primary" [disabled]="!companyForm.valid">Save company</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>

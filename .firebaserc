@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "yfshub": {
+      "hosting": {
+        "yfs": [
+          "yfshub"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "yfshub"
+  }
+}

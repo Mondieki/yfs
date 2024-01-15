@@ -1,0 +1,45 @@
+<nz-page-header nzTitle="Investors" nzSubtitle="">
+</nz-page-header>
+
+<nz-select nzShowSearch nzAllowClear nzPlaceHolder="Filter investors by fund focus"
+    [(ngModel)]="selectedFocus"
+    (ngModelChange)="onFundFocusChange($event)"
+    style="min-width: 100%;">
+    <nz-option [nzLabel]="fund | titlecase | uppercaseIfShort" [nzValue]="fund" *ngFor="let fund of fund_focus"></nz-option>
+</nz-select>
+
+<nz-divider></nz-divider>
+
+<nz-list nzGrid>
+    <div nz-row [nzGutter]="16" *ngIf="loading">
+        <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="8" [nzLg]="6" [nzXl]="6" [nzXXl]="4" *ngFor="let item of skeleton">
+            <nz-list-item>
+                <nz-card [nzActions]="[website]" [nzLoading]="true">
+                    <nz-card-meta nzTitle="" nzDescription=""></nz-card-meta>
+                </nz-card>
+                <ng-template #website>
+                    <nz-skeleton-element nzType="input" [nzSize]="'small'" [nzActive]="true"></nz-skeleton-element>
+                </ng-template>
+            </nz-list-item>
+        </div>
+    </div>
+
+    <div nz-row [nzGutter]="16" *ngIf="!loading && filteredData.length">
+        <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="8" [nzLg]="6" [nzXl]="6" [nzXXl]="4"
+            *ngFor="let item of paginatedItems">
+            <investor-card [investor]="item"></investor-card>
+        </div>
+        <div nz-col nzSpan="24">
+            <nz-divider></nz-divider>
+            <nz-pagination [(nzPageIndex)]="currentPage" [nzTotal]="total" [nzPageSize]="pageSize" [nzResponsive]="true"
+                [nzHideOnSinglePage]="true" (nzPageIndexChange)="onPageChange($event)"
+                (nzPageSizeChange)="onPageSizeChange($event)" [nzShowSizeChanger]="true">
+            </nz-pagination>
+        </div>
+    </div>
+    <div nz-row [nzGutter]="16" *ngIf="!loading && !filteredData.length">
+        <div nz-col nzSpan="24">
+            <p>There are no investors to show for now.</p>
+        </div>
+    </div>
+</nz-list>

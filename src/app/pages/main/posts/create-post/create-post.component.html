@@ -1,0 +1,62 @@
+<nz-page-header nzTitle="Create Post" nzSubtitle="">
+</nz-page-header>
+
+<hr />
+
+<div *ngIf="!user">
+    <nz-skeleton></nz-skeleton>
+    <nz-skeleton></nz-skeleton>
+</div>
+
+<div *ngIf="user">
+    <form nz-form [formGroup]="postForm" (ngSubmit)="submitForm()" nzLayout="vertical">
+
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title" nzRequired>
+                Title
+            </nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Character count should be between 3 and 75"
+                nzHasFeedback>
+                <nz-textarea-count [nzMaxCharacterCount]="75">
+                    <textarea [nzAutosize]="{ minRows: 1, maxRows: 3 }" formControlName="title"
+                        id="title" nz-input></textarea>
+                </nz-textarea-count>
+            </nz-form-control>
+        </nz-form-item>
+
+        <!-- Text -->
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="text" nzRequired>
+                Post
+            </nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Character count should be at least 10"
+                nzHasFeedback>
+                <nz-textarea-count>
+                    <textarea [nzAutosize]="{ minRows: 5, maxRows: 10 }" formControlName="text"
+                        id="text" nz-input></textarea>
+                </nz-textarea-count>
+            </nz-form-control>
+        </nz-form-item>
+
+        <!-- Tags -->
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="text">
+                Tags
+            </nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24">
+                <nz-select nzMode="tags" nzPlaceHolder="Post Tags" formControlName="tags">
+                    <nz-option *ngFor="let item of tags" [nzLabel]="item.title" [nzValue]="item"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-divider></nz-divider>
+
+        <!-- Submit Button -->
+        <nz-form-item>
+            <nz-form-control [nzSpan]="14" [nzOffset]="6">
+                <button nz-button nzType="primary" [disabled]="!postForm.valid">Publish post</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>

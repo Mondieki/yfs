@@ -1,0 +1,59 @@
+<nz-page-header
+    [nzTitle]="(user.name | titlecase) + '  ' + (user.country | countryToFlag)"
+    [nzSubtitle]="user.role | role" *ngIf="user">
+</nz-page-header>
+
+<nz-card style="min-height: 300px" [nzLoading]="true" *ngIf="!user"></nz-card>
+
+<nz-card [nzTitle]="(user.name | titlecase) + '\'s Details'" *ngIf="user">
+
+    <div [innerHTML]="user.bio" style="margin-bottom: 40px;" class="preserve-whitespace"></div>
+
+    <nz-tag [nzColor]="'blue'" *ngIf="user.url">
+        <a [href]="(user.url | validURL )" target="_blank">
+            <span nz-icon nzType="link"></span>
+            <span> Website</span>
+        </a>
+    </nz-tag>
+
+    <nz-tag nzColor="#55acee" *ngIf="user.twitter">
+        <a [href]="user.twitter" target="_blank">
+            <span nz-icon nzType="twitter"></span>
+            <span> Twitter</span>
+        </a>
+    </nz-tag>
+
+    <nz-tag nzColor="#0a66c2" *ngIf="user.linkedin">
+        <a [href]="user.linkedin" target="_blank">
+            <span nz-icon nzType="linkedin"></span>
+            <span> LinkedIn</span>
+        </a>
+    </nz-tag>
+
+    <nz-divider></nz-divider>
+
+    <div>
+        <h4>Skills:</h4>
+        <nz-tag nzColor="geekblue" *ngFor="let item of user.skills">
+            {{ item | titlecase }}
+        </nz-tag>
+    </div>
+    <nz-divider></nz-divider>
+
+    <div>
+        <h4>Contact info:</h4>
+        <a nz-button [nzSize]="'default'" href="mailto:{{ user.email }}" class="email-bg" *ngIf="user.email">
+            <span nz-icon nzType="mail"></span>
+            Email
+        </a>
+        <a nz-button [nzSize]="'default'" href="tel:{{user.phone}}" class="call-bg" *ngIf="user.phone">
+            <span nz-icon nzType="phone"></span>
+            Call
+        </a>
+        <a nz-button [nzSize]="'default'" href="https://wa.me/{{ (user.whatsapp) | slice:1 }}" target="_blank" class="whatsapp-bg" *ngIf="user.email">
+            <span nz-icon nzType="whats-app"></span>
+            Whatsapp
+        </a>
+    </div>
+
+</nz-card>

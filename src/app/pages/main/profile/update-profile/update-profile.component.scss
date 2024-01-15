@@ -1,0 +1,40 @@
+.steps-content {
+  margin-top: 16px;
+  min-height: 200px;
+  text-align: center;
+  padding-top: 80px;
+}
+
+.steps-action {
+  margin-top: 24px;
+}
+
+button {
+  margin-right: 8px;
+}
+
+.phone-number {
+  padding: 0px !important;
+  border: none !important;
+}
+
+.error-feedback {
+  margin-left: 4px;
+  margin-top: 4px;
+  color: #ff4d4f !important;
+  text-align: start !important;
+}
+
+.info-form {
+  margin-top: 40px !important;
+}
+
+[nz-radio] {
+  display: flex !important;
+  height: 32px;
+  line-height: 32px;
+}
+
+.ant-radio-group {
+  display: block !important;
+}

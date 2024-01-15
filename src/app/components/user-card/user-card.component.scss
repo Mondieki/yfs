@@ -1,0 +1,7 @@
+nz-card {
+    min-width: 100% !important;
+}
+
+:host ::ng-deep .ant-card-body {
+    min-height: 250px !important;
+}

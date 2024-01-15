@@ -1,0 +1,42 @@
+<nz-card style="min-height: 300px" [nzLoading]="true" *ngIf="!post"></nz-card>
+
+<nz-card *ngIf="post">
+    <nz-card-meta [nzTitle]="poster ? poster.name : post.postedBy"
+        [nzDescription]="post.postedOn['seconds']*1000 | timeAgo " [nzAvatar]="avatarTemplate"></nz-card-meta>
+
+    <ng-template #avatarTemplate>
+        <nz-avatar nzSrc="https://api.dicebear.com/7.x/thumbs/svg?seed={{post.postedBy}}"></nz-avatar>
+    </ng-template>
+    <nz-divider></nz-divider>
+
+    <h3 style="margin-bottom: 25px;">{{ post.title }}</h3>
+    <div [innerHTML]="post.text" style="margin-bottom: 40px;" class="preserve-whitespace"></div>
+
+    <nz-divider nzText="Comments" *ngIf="post.comments.length"></nz-divider>
+    <div style="min-width: 100%;" *ngIf="user">
+        <form nz-form [nzLayout]="'inline'" [formGroup]="commentForm" (ngSubmit)="submitComment()"
+            style="display: block; min-width: 100%;">
+            <nz-form-item>
+                <nz-form-control>
+                    <textarea nz-input formControlName="comment" placeholder="Share your thoughts ..."
+                        nzAutosize></textarea>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item style="margin-top: 15px;">
+                <nz-form-control>
+                    <button nz-button nzType="primary" [disabled]="!commentForm.valid">Comment</button>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </div>
+    <nz-comment *ngFor="let item of post.comments" [nzAuthor]="userDetailsMap[item.postedBy]?.name || item.postedBy"
+        [nzDatetime]="item.postedOn | timeAgo">
+        <nz-avatar nz-comment-avatar nzIcon="user"
+            nzSrc="https://api.dicebear.com/7.x/thumbs/svg?seed={{item.postedBy}}">
+        </nz-avatar>
+        <nz-comment-content>
+            <div [innerHTML]="item.comment" class="preserve-whitespace"></div>
+        </nz-comment-content>
+    </nz-comment>
+
+</nz-card>

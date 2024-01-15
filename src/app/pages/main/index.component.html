@@ -1,0 +1,76 @@
+<nz-layout class="layout">
+    <nz-header>
+        <div class="logo"></div>
+        <ul nz-menu nzMode="horizontal">
+            <li nz-menu-item>
+                <a routerLink="/companies">
+                    <span nz-icon nzType="shop"></span>
+                    Companies
+                </a>
+            </li>
+            <li nz-menu-item>
+                <a routerLink="/members">
+                    <span nz-icon nzType="team"></span>
+                    Members
+                </a>
+            </li>
+            <li nz-menu-item>
+                <a routerLink="/posts">
+                    <span nz-icon nzType="comment"></span>
+                    Posts
+                </a>
+            </li>
+            <li nz-menu-item>
+                <a routerLink="/investors">
+                    <span nz-icon nzType="dollar"></span>
+                    Investors
+                </a>
+            </li>
+            <li nz-menu-item  *ngIf="!user">
+                <a routerLink="/auth/login">
+                    <span nz-icon nzType="login"></span>
+                    Log In
+                </a>
+            </li>
+            <li nz-submenu nzTitle="Profile" nzIcon="setting" *ngIf="user" class="setting-submenu">
+                <ul>
+                    <li nz-menu-group>
+                        <ul>
+                            <!-- <li nz-menu-item>
+                                <a routerLink="/profile">
+                                    My Profile
+                                </a>
+                            </li>
+                            <li nz-menu-item>
+                                <a routerLink="/my-companies">
+                                    My Companies
+                                </a>
+                            </li> -->
+                            <li nz-menu-item>
+                                <a routerLink="/create-post">
+                                    Create post
+                                </a>
+                            </li>
+                            <li nz-menu-item>
+                                <a routerLink="/add-company">
+                                    Add company
+                                </a>
+                            </li>
+                            <li nz-menu-item>
+                                <a (click)="authService.signOut()">
+                                    Log out
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nz-header>
+    <nz-content>
+        <div class="inner-content">
+            <router-outlet></router-outlet>
+        </div>
+    </nz-content>
+    <nz-footer>Developed and designed by <a href="https://mondieki.com" target="_blank">// mondieki</a> </nz-footer>
+</nz-layout>

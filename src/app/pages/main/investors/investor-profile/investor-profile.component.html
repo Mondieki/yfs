@@ -1,0 +1,71 @@
+<nz-page-header
+    [nzTitle]="(investor.fund_name | titlecase)"
+    [nzSubtitle]="investor.fund_type" *ngIf="investor">
+</nz-page-header>
+
+<nz-card style="min-height: 300px" [nzLoading]="true" *ngIf="!investor"></nz-card>
+
+<nz-card [nzTitle]="(investor.fund_name | titlecase) + ' Details'" *ngIf="investor">
+
+    <div [innerHTML]="investor.fund_description" class="preserve-whitespace"></div>
+
+    <nz-tag [nzColor]="'blue'" *ngIf="investor.url">
+        <a [href]="(investor.url | validURL )" target="_blank">
+            <span nz-icon nzType="link"></span>
+            <span> Website</span>
+        </a>
+    </nz-tag>
+
+    <nz-tag nzColor="#55acee" *ngIf="investor.twitter">
+        <a [href]="investor.twitter" target="_blank">
+            <span nz-icon nzType="twitter"></span>
+            <span> Twitter</span>
+        </a>
+    </nz-tag>
+
+    <nz-tag nzColor="#3b5999" *ngIf="investor.facebook">
+        <a [href]="investor.facebook" target="_blank">
+            <span nz-icon nzType="facebook"></span>
+            <span> Facebook</span>
+        </a>
+    </nz-tag>
+
+    <nz-tag nzColor="#0a66c2" *ngIf="investor.linkedin">
+        <a [href]="investor.linkedin" target="_blank">
+            <span nz-icon nzType="linkedin"></span>
+            <span> LinkedIn</span>
+        </a>
+    </nz-tag>
+
+    <nz-divider></nz-divider>
+
+    <p><strong>Contact person:</strong> {{ investor.contactPerson }}</p>
+    <p><strong>Contact email:</strong> <a href="mailto:{{ investor.contactEmail }}"> {{ investor.contactEmail }}</a></p>
+    <p><strong>Number of Investments:</strong> {{ investor.investments }}</p>
+    <p><strong>Number of Exits:</strong> {{ investor.exits }}</p>
+
+    <nz-divider></nz-divider>
+
+    <div>
+        <h4>Fund Focus:</h4>
+        <nz-tag [nzColor]="'geekblue'" *ngFor="let focus of investor.fund_focus">{{ focus | titlecase }}</nz-tag>
+    </div>
+
+    <nz-divider></nz-divider>
+
+    <div>
+        <h4>Fund Stage:</h4>
+        <nz-tag [nzColor]="'cyan'" *ngFor="let stage of investor.fund_stage">{{ stage | titlecase }}</nz-tag>
+    </div>
+
+    <nz-divider></nz-divider>
+
+    <div>
+        <h4>Portfolio Companies:</h4>
+        <p>
+            <span *ngFor="let item of investor.portfolio_companies; let last = last">
+                {{ item }}<span *ngIf="!last">, </span>
+            </span>
+        </p>
+    </div>
+</nz-card>

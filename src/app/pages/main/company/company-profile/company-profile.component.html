@@ -1,0 +1,42 @@
+<nz-page-header [nzTitle]="(co.name | titlecase)" [nzSubtitle]="co.vertical" *ngIf="co">
+</nz-page-header>
+
+<nz-card style="min-height: 300px" [nzLoading]="true" *ngIf="loading"></nz-card>
+
+<nz-card [nzTitle]="(co.name | titlecase) + ' Details'" *ngIf="!loading && co">
+
+    <div [innerHTML]="co.companyDescription" style="margin-bottom: 30px;" class="preserve-whitespace"></div>
+
+    <nz-tag [nzColor]="'#134AF7'" *ngIf="co.domainUrl">
+        <a [href]="(co.domainUrl | validURL )" target="_blank">
+            <span nz-icon nzType="link"></span>
+            <span> Visit Website</span>
+        </a>
+    </nz-tag>
+
+    <nz-tag [nzColor]="co.mrr === 'Pre-revenue' ?'magenta': 'green'" *ngIf="co.mrr">{{ co.mrr
+        === 'Pre-revenue' ? 'Pre-revenue': co.mrr +' MRR' }}</nz-tag>
+
+    <nz-divider></nz-divider>
+
+    <p><strong>Stage:</strong> {{ co.companyStage | companyStage }}</p>
+    <p><strong>Company headquarters:</strong> {{ co.headquarters | countryToFlag }}</p>
+    <p><strong>Is company incorporated:</strong> {{ co.isRegistered ? 'Yes': 'No' }}</p>
+
+    <nz-divider></nz-divider>
+
+    <div>
+        <h4>Funding:</h4>
+        <nz-tag [nzColor]="'geekblue'">{{ co.fundingType | titlecase }}</nz-tag>
+    </div>
+
+    <nz-divider *ngIf="co.team.length"></nz-divider>
+
+    <div *ngIf="co.team.length">
+        <h4>Founder(s):</h4>
+        <p *ngFor="let name of memberNames$ | async; let i = index">
+            <a [routerLink]="['/member', co.team[i]]">{{ name }}</a>
+        </p>
+    </div>
+
+</nz-card>

@@ -1,0 +1,10 @@
+<nz-list-item>
+    <nz-card [nzActions]="[more]">
+        <nz-card-meta [nzTitle]="(user.name | titlecase) + ' '+ (user.country | countryToFlag)" [nzDescription]="user.role | role"></nz-card-meta>
+        <hr />
+        <div [innerHTML]="user.bio | truncateText: 160 "></div>
+    </nz-card>
+    <ng-template #more>
+        <a [routerLink]="['/member', user.ID]">Learn more</a>
+    </ng-template>
+</nz-list-item>

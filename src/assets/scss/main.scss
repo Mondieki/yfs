@@ -1,0 +1,34 @@
+.vh-100 {
+    height: 100vh !important;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+.center {
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.mnw-100 {
+    min-width: 100% !important;
+}
+
+.mnw-50 {
+    min-width: 50% !important;
+}
+
+nz-tag {
+    margin-bottom: 10px !important;
+}
+
+.phone-number {
+    .ant-input-affix-wrapper-lg {
+        padding: 0px !important;
+    }
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}

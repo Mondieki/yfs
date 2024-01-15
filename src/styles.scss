@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'assets/scss/main.scss';
+
+@media (max-width: 768px) {
+
+    .setting-submenu {
+        .ant-menu-submenu-title {
+            top: -4px;
+        }
+
+        .ant-menu-item .ant-menu-item-icon,
+        .ant-menu-submenu-title .ant-menu-item-icon,
+        .ant-menu-item .anticon,
+        .ant-menu-submenu-title .anticon {
+            font-size: 16px !important;
+        }
+
+        .ant-menu-item .ant-menu-item-icon+span,
+        .ant-menu-submenu-title .ant-menu-item-icon+span,
+        .ant-menu-item .anticon+span,
+        .ant-menu-submenu-title .anticon+span {
+            display: none;
+        }
+    }
+
+}

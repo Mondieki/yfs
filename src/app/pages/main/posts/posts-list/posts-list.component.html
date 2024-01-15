@@ -1,0 +1,52 @@
+<nz-page-header nzTitle="Posts" nzSubtitle="">
+</nz-page-header>
+
+<nz-list nzItemLayout="vertical">
+    <div nz-row *ngIf="loading">
+        <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="24" [nzLg]="24" [nzXl]="24" [nzXXl]="24"
+            *ngFor="let item of skeleton">
+            <nz-list-item>
+                <nz-card [nzLoading]="true" style="min-width: 100%;">
+                    <nz-card-meta nzTitle="" nzDescription=""></nz-card-meta>
+                </nz-card>
+            </nz-list-item>
+        </div>
+    </div>
+
+    <div *ngIf="!loading && data.length">
+        <nz-list-item *ngFor="let item of paginatedItems" nzNoFlex style="margin-bottom: 40px;">
+            <a [routerLink]="['/post', item.ID]">
+                <h3>{{ item.title }}</h3>
+                <div [innerHTML]="item.text | truncateText: 300"></div>
+                <nz-tag [nzColor]="getColorForCategory(tag.category)" *ngFor="let tag of item.tags" style="margin: 6px">{{ tag.title }}</nz-tag>
+                <ul nz-list-item-actions>
+                    <nz-list-item-action>
+                        <span nz-icon nzType="caret-up" style="margin-right: 8px;"></span>
+                        {{ item.votes }}
+                    </nz-list-item-action>
+                    <nz-list-item-action>
+                        <span nz-icon nzType="comment" style="margin-right: 8px;"></span>
+                        {{ item.comments.length }}
+                    </nz-list-item-action>
+                    <nz-list-item-action>
+                        <span nz-icon nzType="eye" style="margin-right: 8px;"></span>
+                        {{ item.viewCount }}
+                    </nz-list-item-action>
+                </ul>
+            </a>
+        </nz-list-item>
+        <div nz-col nzSpan="24">
+            <nz-divider></nz-divider>
+            <nz-pagination [(nzPageIndex)]="currentPage" [nzTotal]="total" [nzPageSize]="pageSize" [nzResponsive]="true"
+                [nzHideOnSinglePage]="true" (nzPageIndexChange)="onPageChange($event)"
+                (nzPageSizeChange)="onPageSizeChange($event)" [nzShowSizeChanger]="true">
+            </nz-pagination>
+        </div>
+    </div>
+
+    <div nz-row [nzGutter]="16" *ngIf="!loading && !data.length">
+        <div nz-col nzSpan="24">
+            <p>There are no members to show for now</p>
+        </div>
+    </div>
+</nz-list>

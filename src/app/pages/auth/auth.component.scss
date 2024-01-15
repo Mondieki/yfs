@@ -1,0 +1,37 @@
+.img-banner {
+  background-image: url('../../../assets/imgs/bg2.webp');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+}
+
+.logo-img {
+  height: 40px;
+  margin-bottom: 30px;
+}
+
+.form-component {
+  min-width: 80% !important;
+}
+
+@media screen and (max-width: 1024px) {
+  .img-banner {
+    display: none !important;
+  }
+
+  .container {
+    justify-content: center !important;
+    align-items: center !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .ctx {
+    min-width: 90% !important;
+  }
+}

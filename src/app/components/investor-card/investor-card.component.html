@@ -1,0 +1,11 @@
+<nz-list-item>
+    <nz-card [nzTitle]="investor.fund_name | titlecase" [nzExtra]="extraTemplate" [nzActions]="[more]">
+        <div [innerHTML]="investor.fund_description"></div>
+    </nz-card>
+    <ng-template #extraTemplate>
+        <a [href]="(investor.url | validURL )" target="_blank"><span nz-icon nzType="link"></span></a>
+    </ng-template>
+    <ng-template #more>
+        <a [routerLink]="['/investor', investor.ID]">Learn more</a>
+    </ng-template>
+</nz-list-item>
